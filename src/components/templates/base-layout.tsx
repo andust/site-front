@@ -1,6 +1,7 @@
 import { Link, Outlet } from 'react-router-dom';
-import List from '@ui/atoms/list/list';
-import ListItem from '@ui/atoms/list/list-item';
+import List from '../../ui/atoms/list/list';
+import ListItem from '../../ui/atoms/list/list-item';
+import ContainerContext, { container } from '../../di';
 
 const BaseLayout = () => (
   <>
@@ -9,7 +10,9 @@ const BaseLayout = () => (
       <div className="d-flex align-self-center">
         <List>
           <ListItem><Link to="/">Home</Link></ListItem>
-          <ListItem><Link to="/business">Businesses</Link></ListItem>
+          <ContainerContext.Provider value={container}>
+            <ListItem><Link to="/business">Businesses</Link></ListItem>
+          </ContainerContext.Provider>
         </List>
       </div>
       <Outlet />

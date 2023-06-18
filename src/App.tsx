@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
-import Business from '@components/pages/business';
-import BaseLayout from '@components/templates/base-layout';
+import Business from './components/pages/business';
+import BaseLayout from './components/templates/base-layout';
 
 const RequireAuth = (): JSX.Element | null => {
   const access = true;

@@ -1,13 +1,28 @@
-import useGetBusiness from '@hooks/data/useGetBusiness';
+import { Route, Routes } from 'react-router-dom';
+import { useContext } from 'react';
 
-const Business = () => {
+import BusinessList from './list';
+import BusinessDetail from './detail';
+
+import BusinessCreate from './create';
+import ContainerContext from '../../../di';
+
+const BusinessIndex = () => {
+  const { useGetBusiness } = useContext(ContainerContext);
   const [{ data }] = useGetBusiness();
+
   return (
-    <div>
-      <h2>Businesses</h2>
-      {data.map((business) => <p key={business.id}>{business.name}</p>)}
+    <div className="w-100">
+      <Routes>
+        <Route path="/" element={<BusinessList businesses={data} />} />
+        <Route path="/new" element={<BusinessCreate />} />
+        <Route
+          path="/:businessId"
+          element={<BusinessDetail businesses={data} />}
+        />
+      </Routes>
     </div>
   );
 };
 
-export default Business;
+export default BusinessIndex;

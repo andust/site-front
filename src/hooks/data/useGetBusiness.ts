@@ -1,4 +1,4 @@
-import Business from '@models/business';
+import Business from '../../models/business';
 import { Response } from './types';
 import useFetch from './useFetch';
 
