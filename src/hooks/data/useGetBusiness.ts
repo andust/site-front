@@ -1,8 +1,10 @@
 import Business from '../../models/business';
-import { Response } from './types';
+import { FetchResponse } from './types';
 import useFetch from './useFetch';
 
-const useGetBusiness = (): [Response<Business[]>, boolean] => {
+export type UseGetBusinessResponse = [FetchResponse<Business[]>, boolean];
+
+const useGetBusiness = (): UseGetBusinessResponse => {
   const [data, isLoading, error, message] = useFetch<Business[]>('business');
 
   return [

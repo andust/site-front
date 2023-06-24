@@ -1,4 +1,4 @@
-export type Response<T> = {
+export type FetchResponse<T> = {
   data: T;
   error: string;
   message: string;

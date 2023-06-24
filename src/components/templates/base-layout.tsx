@@ -1,6 +1,5 @@
 import { Link, Outlet } from 'react-router-dom';
-import List from '../../ui/atoms/list/list';
-import ListItem from '../../ui/atoms/list/list-item';
+import { List, ListItem } from '../../ui/atoms/list';
 import ContainerContext, { container } from '../../di';
 
 const BaseLayout = () => (

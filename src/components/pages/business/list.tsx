@@ -8,13 +8,34 @@ const BusinessList = ({ businesses }: { businesses: Business[] }) => {
   const handleOpenCreateForm = () => navigate('new');
   return (
     <>
-      {businesses.map((business) => (
-        <div key={business.id}>
-          <Link to={business.id || ''}>
-            {business.name}
-          </Link>
-        </div>
-      ))}
+      <table className="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">City</th>
+            <th scope="col">Country</th>
+          </tr>
+        </thead>
+        <tbody>
+          {businesses.map((business, index) => (
+            <tr key={business.id}>
+              <th scope="row">{index + 1}</th>
+              <th>
+                <Link to={business.id || ''}>
+                  {business.name}
+                </Link>
+              </th>
+              <th>
+                {business.address.city}
+              </th>
+              <th>
+                {business.address.country_code}
+              </th>
+            </tr>
+          ))}
+        </tbody>
+      </table>
       <Button
         className="btn-link d-block"
         style={{ position: 'fixed', bottom: 30, right: 30 }}

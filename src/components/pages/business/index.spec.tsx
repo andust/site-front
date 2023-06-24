@@ -1,20 +1,22 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import MyContext from '../../../di';
+import ContainerContext from '../../../di';
 import BusinessIndex from '.';
 import data from '../../../__mock__/businesses-list';
 
 describe('Business page', () => {
-  test('renders businesses list', async () => {
+  it('renders businesses list', async () => {
     render(
       <BrowserRouter>
-        <MyContext.Provider value={{ useGetBusiness: () => [data, false] }}>
+        <ContainerContext.Provider value={{ useGetBusiness: () => [data, false] }}>
           <BusinessIndex />
-        </MyContext.Provider>
+        </ContainerContext.Provider>
       </BrowserRouter>,
     );
 
     const listElements = await screen.findAllByRole('link');
     expect(listElements).toHaveLength(4);
+    const linkNames = listElements.map((le) => le.childNodes[0].textContent);
+    expect(linkNames).toEqual(data.data.map((d) => d.name));
   });
 });

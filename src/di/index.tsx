@@ -1,10 +1,10 @@
 import { createContext } from 'react';
-import { Response } from '../hooks/data/types';
-import useGetBusiness from '../hooks/data/useGetBusiness';
-import Business from '../models/business';
+import useGetBusiness, {
+  UseGetBusinessResponse,
+} from '../hooks/data/useGetBusiness';
 
 interface Container {
-  useGetBusiness: () => [Response<Business[]>, boolean];
+  useGetBusiness: () => UseGetBusinessResponse;
 }
 
 export const container = {
