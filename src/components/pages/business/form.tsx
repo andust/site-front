@@ -1,48 +1,110 @@
-import { FormEvent } from 'react';
-import Business from '../../../models/business';
-import Button from '../../../ui/atoms/button/button';
+import { useState } from 'react';
+import Button from '../../../ui/atoms/button';
+import FormGroup from '../../../ui/molecules/form-group';
+import Business, { BusinessProps } from '../../../models/business';
+import { ValidationError } from '../../../errors/errors';
 
-interface CustomElements extends HTMLFormControlsCollection {
-  name: HTMLInputElement;
-  lei: HTMLInputElement;
-}
+const BusinessForm = ({ business }: { business?: BusinessProps }) => {
+  const [validationErrors, setValidationErrors] = useState<ValidationError>(
+    new Map(),
+  );
+  const [name, setName] = useState(business?.name || '');
+  const [lei, setLei] = useState(business?.lei || '');
+  const [mainIsin, setMainIsin] = useState(business?.mainIsin || '');
+  const [websiteUrl, setWebsiteUrl] = useState(business?.websiteUrl || '');
+  const [addressStreet, setAddressStreet] = useState(
+    business?.address.street || '',
+  );
+  const [addressPostalCode, setAddressPostalCode] = useState(
+    business?.address.postal_code || '',
+  );
+  const [addressCity, setAddressCity] = useState(business?.address.city || '');
+  const [addressCountryCode, setAddressCountryCode] = useState(
+    business?.address.country_code || '',
+  );
 
-interface CustomForm extends HTMLFormElement {
-  readonly elements: CustomElements;
-}
-
-const BusinessForm: React.FC<{ business?: Business }> = () => {
-  const handleOnSubmit = (event: FormEvent<CustomForm>) => {
-    event.preventDefault();
-    const { lei, name } = event.currentTarget.elements;
-    console.log(lei.value, name.value);
+  const onSubmitForm = () => {
+    const newBusiness = new Business({
+      name,
+      lei,
+      mainIsin,
+      websiteUrl,
+      address: {
+        city: addressCity,
+        street: addressStreet,
+        postal_code: addressPostalCode,
+        country_code: addressCountryCode,
+      },
+    });
+    newBusiness.validate();
+    setValidationErrors(newBusiness.validationErrors);
   };
+
   return (
-    <form onSubmit={handleOnSubmit}>
-      <div className="form-group">
-        <label htmlFor="name">
-          Name
-          <input
-            type="text"
-            className="form-control"
-            id="name"
-            aria-describedby="name"
-            placeholder="Enter business name"
-          />
-        </label>
+    <form>
+      <h4>Business</h4>
+      <FormGroup
+        id="name"
+        label="Name"
+        className="mb-3"
+        value={name}
+        onChangeHandler={(e) => setName(e.target.value)}
+        validationError={validationErrors.get('name')}
+      />
+      <FormGroup
+        id="lei"
+        label="Lei"
+        className="mb-3"
+        value={lei}
+        onChangeHandler={(e) => setLei(e.target.value)}
+        validationError={validationErrors.get('lei')}
+      />
+      <FormGroup
+        id="main_isin"
+        label="Main isin"
+        className="mb-3"
+        value={mainIsin}
+        onChangeHandler={(e) => setMainIsin(e.target.value)}
+      />
+      <FormGroup
+        id="website"
+        label="Website"
+        className="mb-3"
+        value={websiteUrl}
+        onChangeHandler={(e) => setWebsiteUrl(e.target.value)}
+      />
+      <div className="ps-3 py-3">
+        <h4>Address</h4>
+        <FormGroup
+          id="address.street"
+          label="Street"
+          className="mb-3"
+          value={addressStreet}
+          onChangeHandler={(e) => setAddressStreet(e.target.value)}
+        />
+        <FormGroup
+          id="address.postal_code"
+          label="Postal code"
+          className="mb-3"
+          value={addressPostalCode}
+          onChangeHandler={(e) => setAddressPostalCode(e.target.value)}
+        />
+        <FormGroup
+          id="address.city"
+          label="City"
+          className="mb-3"
+          value={addressCity}
+          onChangeHandler={(e) => setAddressCity(e.target.value)}
+        />
+        <FormGroup
+          id="address.country_code"
+          label="Country code"
+          className="mb-3"
+          value={addressCountryCode}
+          onChangeHandler={(e) => setAddressCountryCode(e.target.value)}
+        />
       </div>
-      <div className="form-group">
-        <label htmlFor="lei">
-          LEI
-          <input
-            type="text"
-            className="form-control"
-            id="lei"
-            placeholder="LEI"
-          />
-        </label>
-      </div>
-      <Button type="submit" className="btn-primary">
+      <Button className="btn btn-primary mt-3" onClick={onSubmitForm}>
         Submit
       </Button>
     </form>
