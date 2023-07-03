@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
 
-export interface ChildrenProp {
+export interface ChildrenProps {
   children: React.ReactNode;
 }
 

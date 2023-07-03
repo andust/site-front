@@ -1,6 +1,6 @@
-import { ChildrenProp, ClassNameProps } from '../../types';
+import { ChildrenProps, ClassNameProps } from '../../types';
 
-const List = ({ className = '', children }: ChildrenProp & ClassNameProps) => (
+const List = ({ className = '', children }: ChildrenProps & ClassNameProps) => (
   <ul className={`${className} list-group list-group-numbered`}>{children}</ul>
 );
 

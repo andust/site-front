@@ -5,11 +5,14 @@ import useFetch from './useFetch';
 export type UseGetBusinessResponse = [FetchResponse<Business[]>, boolean];
 
 const useGetBusiness = (): UseGetBusinessResponse => {
-  const [data, isLoading, error, message] = useFetch<Business[]>('business');
+  type ResponseBusiness = Business & { main_isin: string, website_url?: string };
+  const [data, isLoading, error, message] = useFetch<ResponseBusiness[]>('business');
 
   return [
     {
-      data: Array.isArray(data) ? data.map((b) => new Business(b)) : [],
+      data: Array.isArray(data)
+        ? data.map((b) => new Business({ ...b, ...{ mainIsin: b.main_isin } }))
+        : [],
       error,
       message,
     },

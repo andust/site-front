@@ -1,8 +1,5 @@
 import BusinessForm from './form';
 
-const BusinessCreate = () => {
-  console.log('aaaa');
-  return <BusinessForm />;
-};
+const BusinessCreate = () => <BusinessForm />;
 
 export default BusinessCreate;

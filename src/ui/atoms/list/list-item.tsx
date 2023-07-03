@@ -1,5 +1,5 @@
-import { ChildrenProp } from '../../types';
+import { ChildrenProps } from '../../types';
 
-const ListItem = ({ children }: ChildrenProp) => <li className="p-1">{children}</li>;
+const ListItem = ({ children }: ChildrenProps) => <li className="p-1">{children}</li>;
 
 export default ListItem;

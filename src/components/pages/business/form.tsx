@@ -44,31 +44,31 @@ const BusinessForm = ({ business }: { business?: BusinessProps }) => {
     <form>
       <h4>Business</h4>
       <FormGroup
-        id="name"
-        label="Name"
         className="mb-3"
+        name="name"
+        label="Name"
         value={name}
         onChangeHandler={(e) => setName(e.target.value)}
         validationError={validationErrors.get('name')}
       />
       <FormGroup
-        id="lei"
-        label="Lei"
         className="mb-3"
+        name="lei"
+        label="Lei"
         value={lei}
         onChangeHandler={(e) => setLei(e.target.value)}
         validationError={validationErrors.get('lei')}
       />
       <FormGroup
-        id="main_isin"
         label="Main isin"
+        name="mainIsin"
         className="mb-3"
         value={mainIsin}
         onChangeHandler={(e) => setMainIsin(e.target.value)}
       />
       <FormGroup
-        id="website"
         label="Website"
+        name="website"
         className="mb-3"
         value={websiteUrl}
         onChangeHandler={(e) => setWebsiteUrl(e.target.value)}
@@ -76,29 +76,29 @@ const BusinessForm = ({ business }: { business?: BusinessProps }) => {
       <div className="ps-3 py-3">
         <h4>Address</h4>
         <FormGroup
-          id="address.street"
           label="Street"
+          name="address.street"
           className="mb-3"
           value={addressStreet}
           onChangeHandler={(e) => setAddressStreet(e.target.value)}
         />
         <FormGroup
-          id="address.postal_code"
           label="Postal code"
+          name="address.postal_code"
           className="mb-3"
           value={addressPostalCode}
           onChangeHandler={(e) => setAddressPostalCode(e.target.value)}
         />
         <FormGroup
-          id="address.city"
           label="City"
+          name="address.city"
           className="mb-3"
           value={addressCity}
           onChangeHandler={(e) => setAddressCity(e.target.value)}
         />
         <FormGroup
-          id="address.country_code"
           label="Country code"
+          name="address.country_code"
           className="mb-3"
           value={addressCountryCode}
           onChangeHandler={(e) => setAddressCountryCode(e.target.value)}

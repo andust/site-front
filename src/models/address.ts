@@ -1,3 +1,10 @@
+export interface AddressProps {
+  street: string;
+  postal_code: string;
+  city: string;
+  country_code: string;
+}
+
 class Address {
   street: string;
 
@@ -7,12 +14,7 @@ class Address {
 
   country_code: string;
 
-  constructor(data: {
-    street: string;
-    postal_code: string;
-    city: string;
-    country_code: string;
-  }) {
+  constructor(data: AddressProps) {
     this.street = data.street;
     this.postal_code = data.postal_code;
     this.city = data.city;

@@ -15,8 +15,8 @@ const AAA = {
         country_code: 'UK',
       }),
       lei: '123456',
-      main_isin: '7890',
-      website_url: 'www.tesco.com',
+      mainIsin: '7890',
+      websiteUrl: 'www.tesco.com',
     }),
     new Business({
       id: '648423ffe2908ed5cb020071',
@@ -28,8 +28,8 @@ const AAA = {
         country_code: 'UK',
       }),
       lei: '56789',
-      main_isin: '4321',
-      website_url: 'www.abc.com',
+      mainIsin: '4321',
+      websiteUrl: 'www.abc.com',
     }),
     new Business({
       id: '648425276420727108990431',
@@ -41,8 +41,8 @@ const AAA = {
         country_code: 'UK',
       }),
       lei: '344522',
-      main_isin: '676745334543',
-      website_url: 'www.Delikatesy.com',
+      mainIsin: '676745334543',
+      websiteUrl: 'www.Delikatesy.com',
     }),
     new Business({
       id: '6484f67306002386389ef1de',
@@ -54,8 +54,8 @@ const AAA = {
         country_code: 'PL',
       }),
       lei: 'aw233',
-      main_isin: '5666fdss221',
-      website_url: 'www.youtube.com',
+      mainIsin: '5666fdss221',
+      websiteUrl: 'www.youtube.com',
     }),
   ],
 };

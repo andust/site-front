@@ -4,6 +4,7 @@ import Business from '@models/business';
 const BusinessDetail = ({ businesses }: { businesses: Business[] }) => {
   const { businessId } = useParams();
   const business = businesses.find((b) => b.id === businessId);
+
   if (!business) {
     return <p>Business not found.</p>;
   }
@@ -16,7 +17,7 @@ const BusinessDetail = ({ businesses }: { businesses: Business[] }) => {
       </p>
       <p>
         <b>ISIN: </b>
-        {business.main_isin}
+        {business.mainIsin}
       </p>
       <p>
         <b>Address: </b>

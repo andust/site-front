@@ -1,5 +1,5 @@
 import {
-  ChildrenProp,
+  ChildrenProps,
   ClassNameProps,
   OnClickProps,
   ReactButtonProps,
@@ -11,7 +11,7 @@ const Button = ({
   className = '',
   style = {},
   onClick,
-}: ChildrenProp &
+}: ChildrenProps &
 ReactButtonProps &
 ClassNameProps &
 React.CSSProperties &

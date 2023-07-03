@@ -27,6 +27,12 @@ module.exports = {
         namedComponents: 'arrow-function',
       },
     ],
+    'jsx-a11y/label-has-associated-control': [2, {
+      labelComponents: ['label'],
+      labelAttributes: ['label'],
+      controlComponents: ['Input'],
+      depth: 3,
+    }],
     // 'react/button-has-type': 'off',
   },
 };
