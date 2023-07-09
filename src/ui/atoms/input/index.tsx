@@ -1,5 +1,5 @@
 export interface InputProps {
-  type?: 'text'
+  type?: 'text' | 'file'
   name: string
   className?: string
   placeholder?: string

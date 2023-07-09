@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import ContainerContext from '../../../di';
+import ContainerContext, { container } from '../../../di';
 import BusinessIndex from '.';
 import data from '../../../__mock__/businesses-list';
 
@@ -8,7 +8,7 @@ describe('Business page', () => {
   it('renders businesses list', async () => {
     render(
       <BrowserRouter>
-        <ContainerContext.Provider value={{ useGetBusiness: () => [data, false] }}>
+        <ContainerContext.Provider value={{ ...container, useGetBusiness: () => [data, false] }}>
           <BusinessIndex />
         </ContainerContext.Provider>
       </BrowserRouter>,

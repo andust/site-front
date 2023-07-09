@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
-import { FetchConfig } from './types';
+import { FetchConfig } from '../../fetch/types';
+import fetchWrapper from '../../fetch';
+
+export type UseFetchResponse<T> = [T | undefined, boolean, string, string];
 
 const useFetch = <T>(
   url: string,
   config: FetchConfig = {},
-): [T | undefined, boolean, string, string] => {
+): UseFetchResponse<T> => {
   const [stateData, setStateData] = useState<T>();
   const [loading, setLoading] = useState(true);
   const [stateError, setStateError] = useState<string>('');
@@ -12,14 +15,12 @@ const useFetch = <T>(
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(
-        `${process.env.REACT_APP_SITE_SERVICE_BACKEND_URL}/api/v1/${url}`,
-        config,
-      );
-      const { data, error, message } = await response.json();
+      const {
+        ok, data, error, message,
+      } = await fetchWrapper<T>(url, config);
       setStateMessage(message);
 
-      if (response.ok) {
+      if (ok) {
         setStateData(data);
       } else {
         setStateError(error);

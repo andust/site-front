@@ -1,17 +1,20 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Button from '../../../ui/atoms/button';
 import FormGroup from '../../../ui/molecules/form-group';
 import Business, { BusinessProps } from '../../../models/business';
 import { ValidationError } from '../../../errors/errors';
+import ContainerContext from '../../../di';
 
 const BusinessForm = ({ business }: { business?: BusinessProps }) => {
+  const { fetchWrapper } = useContext(ContainerContext);
   const [validationErrors, setValidationErrors] = useState<ValidationError>(
     new Map(),
   );
   const [name, setName] = useState(business?.name || '');
   const [lei, setLei] = useState(business?.lei || '');
-  const [mainIsin, setMainIsin] = useState(business?.mainIsin || '');
-  const [websiteUrl, setWebsiteUrl] = useState(business?.websiteUrl || '');
+  const [mainIsin, setMainIsin] = useState(business?.main_isin || '');
+  const [websiteUrl, setWebsiteUrl] = useState(business?.website_url || '');
+  const [logoFile, setLogoFile] = useState<File>();
   const [addressStreet, setAddressStreet] = useState(
     business?.address.street || '',
   );
@@ -23,12 +26,12 @@ const BusinessForm = ({ business }: { business?: BusinessProps }) => {
     business?.address.country_code || '',
   );
 
-  const onSubmitForm = () => {
+  const onSubmitForm = async () => {
     const newBusiness = new Business({
       name,
       lei,
-      mainIsin,
-      websiteUrl,
+      main_isin: mainIsin,
+      website_url: websiteUrl,
       address: {
         city: addressCity,
         street: addressStreet,
@@ -38,6 +41,14 @@ const BusinessForm = ({ business }: { business?: BusinessProps }) => {
     });
     newBusiness.validate();
     setValidationErrors(newBusiness.validationErrors);
+    if (newBusiness.isValid()) {
+      const formData = new FormData();
+      const { data, error, message } = await fetchWrapper('business', {
+        method: 'POST',
+        body: newBusiness.toJSON(),
+      });
+      console.log(data, logoFile, error, message, formData);
+    }
   };
 
   return (
@@ -72,6 +83,17 @@ const BusinessForm = ({ business }: { business?: BusinessProps }) => {
         className="mb-3"
         value={websiteUrl}
         onChangeHandler={(e) => setWebsiteUrl(e.target.value)}
+      />
+      <FormGroup
+        label="Logo"
+        name="logo"
+        type="file"
+        className="mb-3"
+        onChangeHandler={(e) => {
+          const tmpLogoFile = e.target.files?.length ? e.target.files[0] : undefined;
+          setLogoFile(tmpLogoFile);
+        }}
+        // onChangeHandler={(e) => (e.target.files?.length ? setLogo(e.target.files[0]) : null)}
       />
       <div className="ps-3 py-3">
         <h4>Address</h4>

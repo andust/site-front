@@ -1,11 +1,14 @@
-import Business from '@models/business';
+import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import ContainerContext from '../../../di';
 import Button from '../../../ui/atoms/button';
 import Table from '../../../ui/atoms/table';
 import { ReactComponent as PlusCircle } from '../../../assets/svg/plus-circle.svg';
 
-const BusinessList = ({ businesses }: { businesses: Business[] }) => {
+const BusinessList = () => {
   const navigate = useNavigate();
+  const { useGetBusiness } = useContext(ContainerContext);
+  const [{ data }] = useGetBusiness();
   const handleOpenCreateForm = () => navigate('new');
 
   return (
@@ -17,7 +20,7 @@ const BusinessList = ({ businesses }: { businesses: Business[] }) => {
           { id: 3, content: 'City' },
           { id: 4, content: 'Country' },
         ]}
-        tbody={businesses.map((business, i) => [
+        tbody={data.map((business, i) => [
           { id: i + 1, content: i + 1 },
           {
             id: i + 2,

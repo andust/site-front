@@ -8,13 +8,14 @@ export interface BusinessProps {
   name: string;
   address: AddressProps;
   lei: string;
-  mainIsin: string;
-  websiteUrl: string;
+  main_isin: string;
+  website_url: string;
+  logo?: string;
 }
 
 const userSchema = object({
   name: string().min(2).label('Name'),
-  lei: string().length(20).label('Lei'),
+  // lei: string().length(20).label('Lei'),
 });
 
 class Business {
@@ -26,9 +27,11 @@ class Business {
 
   lei: string;
 
-  mainIsin: string;
+  main_isin: string;
 
-  websiteUrl: string;
+  website_url: string;
+
+  logo: string;
 
   validationErrors: Map<string, string[]>;
 
@@ -37,8 +40,9 @@ class Business {
     this.name = props.name;
     this.address = new Address(props.address);
     this.lei = props.lei;
-    this.mainIsin = props.mainIsin;
-    this.websiteUrl = props.websiteUrl;
+    this.main_isin = props.main_isin;
+    this.website_url = props.website_url;
+    this.logo = props.logo ?? '';
     this.validationErrors = new Map();
   }
 
@@ -65,6 +69,17 @@ class Business {
 
   isValid(): boolean {
     return this.validationErrors.size === 0;
+  }
+
+  toJSON(): BusinessProps {
+    return {
+      name: this.name,
+      address: this.address,
+      lei: this.lei,
+      main_isin: this.main_isin,
+      website_url: this.website_url,
+      logo: this.logo,
+    };
   }
 }
 

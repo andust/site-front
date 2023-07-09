@@ -1,27 +1,29 @@
 import { useParams } from 'react-router-dom';
-import Business from '@models/business';
+import { useContext } from 'react';
+import ContainerContext from '../../../di';
 
-const BusinessDetail = ({ businesses }: { businesses: Business[] }) => {
+const BusinessDetail = () => {
   const { businessId } = useParams();
-  const business = businesses.find((b) => b.id === businessId);
+  const { useGetBusinessById } = useContext(ContainerContext);
+  const [{ data }] = useGetBusinessById(businessId ?? '');
 
-  if (!business) {
+  if (!data) {
     return <p>Business not found.</p>;
   }
   return (
     <>
-      <h3>{business.name}</h3>
+      <h3>{data.name}</h3>
       <p>
         <b>LEI: </b>
-        {business.lei}
+        {data.lei}
       </p>
       <p>
         <b>ISIN: </b>
-        {business.mainIsin}
+        {data.main_isin}
       </p>
       <p>
         <b>Address: </b>
-        {business.fullAddress()}
+        {data.fullAddress()}
       </p>
     </>
   );

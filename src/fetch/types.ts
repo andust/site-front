@@ -6,5 +6,5 @@ export type FetchResponse<T> = {
 
 export type FetchConfig = {
   method?: 'GET' | 'POST' | 'DELETE',
-  body?: string
+  body?: Record<string, any>
 };
