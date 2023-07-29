@@ -1,5 +1,6 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useContext } from 'react';
+
 import ContainerContext from '../../../di';
 
 const BusinessDetail = () => {
@@ -13,6 +14,15 @@ const BusinessDetail = () => {
   return (
     <>
       <h3>{data.name}</h3>
+      <div style={{
+        width: '150px',
+        height: '150px',
+        overflow: 'hidden',
+        backgroundImage: `url("${process.env.REACT_APP_SITE_SERVICE_BACKEND_URL}/${data.logo}")`,
+        backgroundSize: 'cover',
+      }}
+      />
+      <Link to="edit">Edit</Link>
       <p>
         <b>LEI: </b>
         {data.lei}

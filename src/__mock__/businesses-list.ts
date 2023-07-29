@@ -1,8 +1,8 @@
 import Business from '../models/business';
 import Address from '../models/address';
 
-const AAA = {
-  error: '',
+const DATA = {
+  error: false,
   message: '',
   data: [
     new Business({
@@ -64,4 +64,4 @@ const AAA = {
   ],
 };
 
-export default AAA;
+export default DATA;

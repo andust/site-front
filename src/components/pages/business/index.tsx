@@ -2,8 +2,8 @@ import { Route, Routes } from 'react-router-dom';
 
 import BusinessList from './list';
 import BusinessDetail from './detail';
-
 import BusinessCreate from './create';
+import BusinessEdit from './edit';
 
 const BusinessIndex = () => (
   <div className="w-100">
@@ -13,6 +13,10 @@ const BusinessIndex = () => (
       <Route
         path="/:businessId"
         element={<BusinessDetail />}
+      />
+      <Route
+        path="/:businessId/edit"
+        element={<BusinessEdit />}
       />
     </Routes>
   </div>

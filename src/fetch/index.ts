@@ -6,7 +6,13 @@ const fetchWrapper = async <T>(
 ): Promise<FetchResponse<T> & { ok: Boolean }> => {
   const response = await fetch(
     `${process.env.REACT_APP_SITE_SERVICE_BACKEND_URL}/api/v1/${url}`,
-    { ...config, body: JSON.stringify(config.body) },
+    {
+      ...config,
+      body:
+        config.body instanceof FormData
+          ? config.body
+          : JSON.stringify(config.body),
+    },
   );
   const { data, error, message }: FetchResponse<T> = await response.json();
 

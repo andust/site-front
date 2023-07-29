@@ -1,12 +1,16 @@
-import { useContext, useState } from 'react';
+import { FormEvent, useState } from 'react';
+
 import Button from '../../../ui/atoms/button';
 import FormGroup from '../../../ui/molecules/form-group';
 import Business, { BusinessProps } from '../../../models/business';
 import { ValidationError } from '../../../errors/errors';
-import ContainerContext from '../../../di';
 
-const BusinessForm = ({ business }: { business?: BusinessProps }) => {
-  const { fetchWrapper } = useContext(ContainerContext);
+interface BusinessFormProps {
+  business?: BusinessProps;
+  handleSubmit: (business: Business, logo?: File) => Promise<void>;
+}
+
+const BusinessForm = ({ business, handleSubmit }: BusinessFormProps) => {
   const [validationErrors, setValidationErrors] = useState<ValidationError>(
     new Map(),
   );
@@ -26,7 +30,8 @@ const BusinessForm = ({ business }: { business?: BusinessProps }) => {
     business?.address.country_code || '',
   );
 
-  const onSubmitForm = async () => {
+  const onSubmitForm = async (e: FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     const newBusiness = new Business({
       name,
       lei,
@@ -42,12 +47,7 @@ const BusinessForm = ({ business }: { business?: BusinessProps }) => {
     newBusiness.validate();
     setValidationErrors(newBusiness.validationErrors);
     if (newBusiness.isValid()) {
-      const formData = new FormData();
-      const { data, error, message } = await fetchWrapper('business', {
-        method: 'POST',
-        body: newBusiness.toJSON(),
-      });
-      console.log(data, logoFile, error, message, formData);
+      await handleSubmit(newBusiness, logoFile);
     }
   };
 
@@ -88,12 +88,13 @@ const BusinessForm = ({ business }: { business?: BusinessProps }) => {
         label="Logo"
         name="logo"
         type="file"
-        className="mb-3"
+        className="mb-3 yyy"
         onChangeHandler={(e) => {
-          const tmpLogoFile = e.target.files?.length ? e.target.files[0] : undefined;
+          const tmpLogoFile = e.target.files?.length
+            ? e.target.files[0]
+            : undefined;
           setLogoFile(tmpLogoFile);
         }}
-        // onChangeHandler={(e) => (e.target.files?.length ? setLogo(e.target.files[0]) : null)}
       />
       <div className="ps-3 py-3">
         <h4>Address</h4>
@@ -126,7 +127,7 @@ const BusinessForm = ({ business }: { business?: BusinessProps }) => {
           onChangeHandler={(e) => setAddressCountryCode(e.target.value)}
         />
       </div>
-      <Button className="btn btn-primary mt-3" onClick={onSubmitForm}>
+      <Button className="btn btn-primary mt-3" type="submit" onClick={onSubmitForm}>
         Submit
       </Button>
     </form>

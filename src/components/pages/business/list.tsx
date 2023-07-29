@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
 import ContainerContext from '../../../di';
 import Button from '../../../ui/atoms/button';
 import Table from '../../../ui/atoms/table';
@@ -9,7 +10,6 @@ const BusinessList = () => {
   const navigate = useNavigate();
   const { useGetBusiness } = useContext(ContainerContext);
   const [{ data }] = useGetBusiness();
-  const handleOpenCreateForm = () => navigate('new');
 
   return (
     <>
@@ -34,7 +34,7 @@ const BusinessList = () => {
       <Button
         className="btn-link d-block"
         style={{ position: 'fixed', bottom: 30, right: 30 }}
-        onClick={handleOpenCreateForm}
+        onClick={() => navigate('new')}
       >
         <PlusCircle
           className="text-white bg-primary rounded-circle"
