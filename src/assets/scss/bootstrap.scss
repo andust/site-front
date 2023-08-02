@@ -24,6 +24,7 @@
 // @import "dropdown";
 // @import "button-group";
 // @import "nav";
+@import "sf-nav";
 // @import "navbar";
 // @import "card";
 // @import "accordion";
@@ -49,3 +50,14 @@
 // Utilities
 @import "utilities/api";
 // scss-docs-end import-stack
+@import "fonts";
+
+
+.sf-gradient {
+    background-color: rgba(255, 255, 255, 1);
+    background-image: linear-gradient(162deg, rgba(255, 255, 255, 1) 0%, rgba(203, 207, 213, 1) 100%);
+}
+
+// .sf-border-end{
+//     border-right: 2px solid $white;
+// }

@@ -1,0 +1,11 @@
+.sf-side-nav {
+    li {
+        margin-bottom: $spacer * 1.5;
+        &:last-child {
+            margin-bottom: 0;
+        }
+        a {
+            padding: .75rem;
+        }
+    }
+}

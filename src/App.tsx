@@ -14,13 +14,11 @@ const RequireAuth = (): JSX.Element | null => {
 };
 
 const App = () => (
-  <div className="App">
-    <Routes>
-      <Route path="" element={<RequireAuth />}>
-        <Route path="business/*" element={<Business />} />
-      </Route>
-    </Routes>
-  </div>
+  <Routes>
+    <Route path="" element={<RequireAuth />}>
+      <Route path="business/*" element={<Business />} />
+    </Route>
+  </Routes>
 );
 
 export default App;
